@@ -1,8 +1,31 @@
-doctype html
-html
-  head
-  body
-    h1= titulo
-    p Parrafo
-    hr
-    pre= datos
+extends layout
+
+block content
+  h1 Hello MVC
+  p Ingresá el ID del usuario que querés buscar.
+  form.form-inline(action='/search' method='get')
+    div.form-group.mr-sm-3
+      input.form-control(type='text' name='id' placeholder='ID')
+    input.form-control.btn.btn-primary(type='submit' value='Buscar')
+  hr
+  if datos
+    table.table.table-striped
+      thead.thead-dark
+        th id
+        th Nombre
+        th Email
+        th Cumpleaños
+        th Edad
+      tbody
+        each usuario in datos
+          tr
+            td= usuario.id
+            td= usuario.name
+            td= usuario.mail
+            td= usuario.birthday.toLocaleDateString('es-AR')
+            td= Math.trunc((new Date() - new Date(usuario.birthday)) / 31540000000)
+  else
+    h3 No hay resultados            
+  hr
+  h3 Más info en 
+    a(href='#') MDN      
